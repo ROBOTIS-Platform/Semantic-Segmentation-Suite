@@ -168,11 +168,11 @@ def lovasz_softmax(probas, labels, only_present=True, per_image=False, ignore=No
 def random_crop(image, label, crop_height, crop_width):
     if (image.shape[0] != label.shape[0]) or (image.shape[1] != label.shape[1]):
         raise Exception('Image and label must have the same dimensions!')
-        
+
     if (crop_width <= image.shape[1]) and (crop_height <= image.shape[0]):
         x = random.randint(0, image.shape[1]-crop_width)
         y = random.randint(0, image.shape[0]-crop_height)
-        
+
         if len(label.shape) == 3:
             return image[y:y+crop_height, x:x+crop_width, :], label[y:y+crop_height, x:x+crop_width, :]
         else:
@@ -248,7 +248,7 @@ def evaluate_segmentation(pred, label, num_classes, score_averaging="weighted"):
 
     return global_accuracy, class_accuracies, prec, rec, f1, iou
 
-    
+
 def compute_class_weights(labels_dir, label_values):
     '''
     Arguments:
@@ -275,7 +275,7 @@ def compute_class_weights(labels_dir, label_values):
             class_map = class_map.astype(np.float32)
             class_pixels[index] += np.sum(class_map)
 
-            
+
         print("\rProcessing image: " + str(n) + " / " + str(len(image_files)), end="")
         sys.stdout.flush()
 
@@ -296,4 +296,3 @@ def memory():
     py = psutil.Process(pid)
     memoryUse = py.memory_info()[0]/2.**30  # Memory use in GB
     print('Memory usage in GBs:', memoryUse)
-
